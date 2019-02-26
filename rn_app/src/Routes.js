@@ -12,7 +12,7 @@ import Act from './components/act/Act';
 import Photo from './components/photo/Photo';
 import Camera from './components/camera/Camera';
 import Comments from './components/photo/Comments';
-
+import UserProfile from './components/user/UserProfile';
 
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 const animDuration = {
@@ -105,6 +105,10 @@ class Router extends Component {
             }
             case 'act': {
                 RoutedComponent = <Act/>
+                break;
+            }
+            case 'userprofile': {
+                RoutedComponent = <UserProfile/>
                 break;
             }
             default: {

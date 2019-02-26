@@ -62,13 +62,21 @@ delete likes comments on photo removal
 change time from admin users 
 //acts save in reducer and load only once
 album
-profile page for people
 
-photos in cache
 dashboard persist image limit in redux
 
+
+you & N like this
+user profile
+view count on photos
+- feeds - done
+- photo page
+subscribe to users
+followers
+photos in cache
 tag in photo
-
-
-apk link
-qr code
+flatlist in feeds
+edit avatar
+points breakdown dashboard
+search users
+dev menu

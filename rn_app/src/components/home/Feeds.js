@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, ScrollView, FlatList, RefreshControl, Dimensions, Text, Image, TouchableOpacity, Alert } from 'react-native';
 import { connect } from 'react-redux';
+import imageCacheHoc from 'react-native-image-cache-hoc';
 import { config } from './../../../config';
 
 import { colors, fonts } from '../common/Styles';
@@ -10,6 +11,7 @@ import Avatar from './../user/Avatar';
 
 const width = Dimensions.get('window').width;
 const dimensions = Dimensions.get('window');
+const CacheableImage = imageCacheHoc(Image, { });
 class Feed extends React.Component {
     constructor(props) {
         super(props);
@@ -30,9 +32,9 @@ class Feed extends React.Component {
 
         if (this.mounted) {
             let offY = this.props.offY;
-            if(this.scrollView != null) this.scrollView.scrollTo({ x: 0, y: offY, animated: false });
+            if (this.scrollView != null) this.scrollView.scrollTo({ x: 0, y: offY, animated: false });
             setTimeout(() => {
-                if(this.scrollView != null) this.scrollView.scrollTo({ x: 0, y: offY, animated: false })
+                if (this.scrollView != null) this.scrollView.scrollTo({ x: 0, y: offY, animated: false })
             }, 10);
         }
     }
@@ -40,7 +42,7 @@ class Feed extends React.Component {
     _onLayout = () => {
         if (this.mounted) {
             let offY = this.props.offY;
-            if(this.scrollView != null) this.scrollView.scrollTo({ x: 0, y: offY, animated: false })
+            if (this.scrollView != null) this.scrollView.scrollTo({ x: 0, y: offY, animated: false })
         }
     }
     onMomentumScrollEnd = (e) => {
@@ -194,6 +196,10 @@ class Feed extends React.Component {
             });
     }
 
+    openProfile = (id) => {
+        this.props.setUserProfile(id);
+        this.props.navTo("userprofile");
+    }
 
     render() {
         formatDate = (date) => {
@@ -252,9 +258,9 @@ class Feed extends React.Component {
                         Array.from(this.props.feed).reverse().map((media, k) =>
                             k < this.props.feedsCount && <View style={styles.feeds} key={k}>
                                 <View style={{ flexDirection: 'row', flexWrap: 'wrap', paddingBottom: 10, alignItems: 'center', flex: 1 }}>
-                                    <View style={{ width: 40, height: 40, borderRadius: 100, borderWidth: 2, borderColor: colors.color6, overflow: 'hidden' }}>
+                                    <TouchableOpacity onPress={() => this.openProfile(media.user_id)} style={{ width: 40, height: 40, borderRadius: 100, borderWidth: 2, borderColor: colors.color6, overflow: 'hidden' }}>
                                         <Avatar gender={media.author.gender || ''} config={media.author.avatar || ''} bg={colors.color6} />
-                                    </View>
+                                    </TouchableOpacity>
                                     <View style={{ paddingLeft: 10 }}>
                                         <View style={{ flexDirection: 'row' }}>
                                             <Text style={{ fontWeight: 'bold', marginBottom: 0, color: colors.color1 }}>
@@ -283,8 +289,8 @@ class Feed extends React.Component {
                                 </View>
 
                                 <TouchableOpacity onPress={() => this.setPhotoId(media._id)}>
-                                    <Image
-                                        style={styles.image}
+                                    <CacheableImage
+                                        style={styles.image} permanent={true}
                                         source={{ uri: config.ConfigSettings.uploadsFolder + media.name }}
                                         alt={media.name}
                                     />
@@ -292,6 +298,7 @@ class Feed extends React.Component {
 
                                 <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', paddingTop: 5, alignItems: 'center' }}>
                                     <Text style={{ color: colors.color1, fontWeight: "bold" }}>{media.likes.length} Like{media.likes.length != 1}</Text>
+                                    <Text style={{ color: colors.color6, fontWeight: "bold", marginRight: 'auto', paddingLeft: 20 }}>{media.view_count} View{media.view_count != 1 ? "s" : ""}</Text>
                                     <Text onPress={() => this.openComments(media._id)} style={{ color: colors.color6, paddingVertical: 5 }}>{media.comments.length} Comment{media.comments.length != 1 && "s"}</Text>
                                 </View>
                             </View>)
@@ -342,7 +349,8 @@ function mapPropsToDispatch(dispatch) {
         log: (msg) => dispatch({ type: 'RECORD', log: msg }),
         updateFeed: (data) => dispatch({ type: 'UPDATE_FEED_DATA', data: data }),
         setOffsetY: (y) => dispatch({ type: 'SET_FEEDS_OFFSET_Y', y: y }),
-        setFeedsCount: (count) => dispatch({ type: 'SET_FEEDS_COUNT', count: count })
+        setFeedsCount: (count) => dispatch({ type: 'SET_FEEDS_COUNT', count: count }),
+        setUserProfile: (id) => dispatch({ type: 'SET_USER_ID', id: id })
     }
 }
 

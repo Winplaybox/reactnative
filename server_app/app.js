@@ -20,6 +20,7 @@ var mediaRouter = require('./routes/media');
 var ratingsRouter = require('./routes/users');
 var likesRouter = require('./routes/users');
 var actsRouter = require('./routes/act');
+var analyticsRouter = require('./routes/analytics');
 
 const dev = process.env.NODE_ENV === 'development';
 
@@ -37,7 +38,7 @@ var app = express();
 
 app.use('/graphql', cors(), graphqlHTTP({
     schema,
-    graphiql: dev
+    graphiql: true
 }));
 
 app.use(logger('dev'));
@@ -53,6 +54,7 @@ app.use('/media', protectedRoute, cors(), mediaRouter);
 app.use('/ratings', protectedRoute, ratingsRouter);
 app.use('/likes', protectedRoute, likesRouter);
 app.use('/acts', protectedRoute, cors(), actsRouter);
+app.use('/analytics', cors(), analyticsRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

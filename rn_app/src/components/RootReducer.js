@@ -5,6 +5,7 @@ import log from './logs/LogReducer';
 import acts from './act/ActReducer';
 import photos from './photo/PhotoReducer';
 import ranks from './Ranking/RankReducer';
+import user from './user/UserReducer'
 
 const initialState = {
     count: 0,
@@ -74,5 +75,6 @@ export default combineReducers({
     home,
     acts,
     photos,
-    ranks
+    ranks,
+    user
 })

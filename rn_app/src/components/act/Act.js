@@ -47,7 +47,7 @@ class Act extends React.Component {
                     name, _id
                 }
                 performers {
-                    firstName, lastName, gender, avatar
+                    firstName, lastName, gender, avatar, emp_id
                 }
             } 
         }`;
@@ -106,6 +106,11 @@ class Act extends React.Component {
     setPhotoId = (id) => {
         this.props.setPhotoId(id)
         this.props.navTo("photo");
+    }
+
+    openProfile = (id) => {
+        this.props.setUserProfile(id);
+        this.props.navTo("userprofile");
     }
 
     render() {
@@ -173,25 +178,27 @@ class Act extends React.Component {
                                     <Text style={styles.label}>Performers</Text>
                                     <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", marginTop: 10 }}>
                                         {act.performers.map((p, i) =>
-                                            <View key={i} style={{ width: '25%', alignItems: "center", justifyContent: 'center', display: "flex", marginBottom: 10 }}>
+                                            <TouchableOpacity onPress={() => this.openProfile(p.emp_id)} key={i} style={{ width: '25%', alignItems: "center", justifyContent: 'center', display: "flex", marginBottom: 10 }}>
                                                 <View style={{ width: 70, height: 70, borderRadius: 100, borderWidth: 3, borderColor: colors.color4, overflow: 'hidden' }}>
                                                     <Avatar gender={p.gender || ''} config={p.avatar || ''} bg={colors.color6} />
                                                 </View>
                                                 <Text style={{ ...styles.detailText, fontSize: 14, paddingHorizontal: 10, marginTop: 7, textAlign: 'center', color: colors.color6 }}>{p.firstName} {p.lastName}</Text>
-                                            </View>
+                                            </TouchableOpacity>
                                         )}
                                     </View>
                                 </View>
 
                                 {act.media.length > 0 && <View style={styles.detailBox}>
                                     <Text style={styles.label}>Photos ({act.media.length})</Text>
-                                    {act.media.map((m,kimg) => <TouchableOpacity key={kimg} onPress={() => this.setPhotoId(m._id)}>
-                                        <Image
-                                            style={styles.image}
-                                            source={{ uri: config.ConfigSettings.uploadsFolder + m.name }}
-                                            alt={m.name}
-                                        />
-                                    </TouchableOpacity>)}
+                                    <View style={{ flexWrap: 'wrap', flex: 1, flexDirection: 'row' }}>
+                                        {act.media.map((m, kimg) => <TouchableOpacity key={kimg} onPress={() => this.setPhotoId(m._id)}>
+                                            <Image
+                                                style={styles.photos}
+                                                source={{ uri: config.ConfigSettings.uploadsFolder + m.name }}
+                                                alt={m.name}
+                                            />
+                                        </TouchableOpacity>)}
+                                    </View>
                                 </View>}
 
                             </ScrollView>)
@@ -230,6 +237,9 @@ const styles = {
     },
     image: {
         width: 100, height: 100
+    },
+    photos: {
+        width: (width - 70) / 3, height: (width - 70) / 3, borderWidth: 1, borderColor: colors.color2
     }
 }
 
@@ -245,7 +255,8 @@ function mapPropsToDispatch(dispatch) {
     return {
         navTo: (route) => dispatch({ type: 'NAVIGATE_TO', route: route }),
         setPhotoId: (_id) => dispatch({ type: 'SHOW_PHOTO_ID', id: _id }),
-        log: (msg) => dispatch({ type: 'RECORD', log: msg })
+        log: (msg) => dispatch({ type: 'RECORD', log: msg }),
+        setUserProfile: (id) => dispatch({ type: 'SET_USER_ID', id: id })
     }
 }
 

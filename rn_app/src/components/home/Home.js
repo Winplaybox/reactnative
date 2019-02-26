@@ -40,7 +40,6 @@ class Home extends React.Component {
             this.setState({ activeScreen: pos });
             if (pos == 0) this.setState({ opacity: 1 });
         }
-
     }
 
     _onLayout = () => {

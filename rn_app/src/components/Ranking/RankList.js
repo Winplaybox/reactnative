@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ScrollView, RefreshControl, Dimensions, Text, Image, TouchableOpacity, TextInput, Modal, Alert, Button } from 'react-native';
+import { View, ScrollView, RefreshControl, Dimensions, Text, Image, Modal, TouchableHighlight } from 'react-native';
 import { connect } from 'react-redux';
 import LinearGradient from 'react-native-linear-gradient';
 import { colors, fonts } from '../common/Styles';
@@ -13,7 +13,8 @@ class RankList extends React.Component {
         super(props);
         this.state = {
             refreshing: false,
-            ranking: []
+            ranking: [],
+            modalVisible: false
         }
         this.mounted = true;
         this.graphql();
@@ -30,7 +31,8 @@ class RankList extends React.Component {
                 view_count
                 comments { _id }
                 author {
-                    firstName lastName emp_id comments {_id}
+                    firstName lastName emp_id 
+                    comments { _id }
                 }
             }
         }`;
@@ -78,11 +80,55 @@ class RankList extends React.Component {
         this.graphql();
     }
 
+    openProfile = (id) => {
+        this.props.setUserProfile(id);
+        this.props.navTo("userprofile");
+    }
+
     render() {
         let lgcolors = ['#948e77', '#674f46', colors.color3];
         return (
             <View style={{ ...styles.screen, backgroundColor: colors.color5 }}>
-                <Text style={{ fontFamily: fonts.galano, color: "#7b8191", marginTop: 30, marginBottom: 15, marginLeft: 15, fontSize: 30 }}>Leaderboard</Text>
+                <View style={{ marginTop: 30, marginBottom: 15, paddingHorizontal: 15, flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <Text style={{ fontFamily: fonts.galano, color: "#7b8191", fontSize: 30 }}>Leaderboard</Text>
+                    <Text onPress={() => this.setState({modalVisible: true})} style={{ fontFamily: fonts.iconSolid, color: "#7b8191", fontSize: 30 }}>&#xf05a;</Text>
+                </View>
+
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    onRequestClose={() => this.setState({modalVisible: false})}
+                    visible={this.state.modalVisible}>
+                    <View style={{ margin: 0, backgroundColor: 'rgba(0,0,0,0.8)', flex: 1, alignItems: 'center', justifyContent: 'center', padding: 30 }}>
+                        <View style={{backgroundColor: colors.color2, borderRadius: 10, padding: 15, paddingBottom: 0, paddingTop: 10}}>
+                            <TouchableHighlight style={{paddingVertical: 5}}
+                                onPress={() => this.setState({modalVisible: false})}>
+                                <Text style={{ fontFamily: fonts.iconSolid, color: colors.color1, fontSize: 30, textAlign: 'right' }}>&#xf00d;</Text>
+                            </TouchableHighlight>
+
+                            <Text style={{ color: colors.color6, fontSize: 16}}>Points can be earned in the following ways:</Text>
+                            
+                            <View style={{paddingVertical: 15, paddingTop: 5}}>
+                                <View style={{flexDirection: 'row', justifyContent: "space-between", paddingVertical: 5}}>
+                                    <Text style={{color: colors.color1, fontWeight: 'bold'}}>Activity</Text><Text style={{color: colors.color1, fontWeight: 'bold'}}>Points</Text>
+                                </View>
+                                <View style={{flexDirection: 'row', justifyContent: "space-between", paddingVertical: 3}}>
+                                    <Text style={{color: '#fff'}}>Photo Upload</Text><Text style={{color: '#fff', fontWeight: 'bold'}}>10</Text>
+                                </View>
+                                <View style={{flexDirection: 'row', justifyContent: "space-between", paddingVertical: 3}}>
+                                    <Text style={{color: '#fff'}}>Comments</Text><Text style={{color: '#fff', fontWeight: 'bold'}}>3</Text>
+                                </View>
+                                <View style={{flexDirection: 'row', justifyContent: "space-between", paddingVertical: 3}}>
+                                    <Text style={{color: '#fff'}}>Likes</Text><Text style={{color: '#fff', fontWeight: 'bold'}}>2</Text>
+                                </View>
+                                <View style={{flexDirection: 'row', justifyContent: "space-between", paddingVertical: 3}}>
+                                    <Text style={{color: '#fff'}}>Photo Views</Text><Text style={{color: '#fff', fontWeight: 'bold'}}>1</Text>
+                                </View>
+                            </View>
+
+                        </View>
+                    </View>
+                </Modal>
 
                 <ScrollView horizontal={false} decelerationRate={0.1} snapToInterval={width} snapToAlignment={"center"} refreshControl={
                     <RefreshControl
@@ -108,7 +154,7 @@ class RankList extends React.Component {
                                     </View>}
 
                                     {k > 2 && <Text style={styles.rank}>{k + 1}</Text>}
-                                    <Text style={styles.name}>{this.state.ranking[k].firstName} {this.state.ranking[k].lastName}</Text>
+                                    <Text onPress={() => this.openProfile(this.state.ranking[k].emp_id)} style={styles.name}>{this.state.ranking[k].firstName} {this.state.ranking[k].lastName}</Text>
                                     <Text style={styles.points}>{this.state.ranking[k].points}</Text>
                                 </View> : <View style={{ ...styles.row, ...styles.topRows[k], ...styles.topRow }} >
                                         <Text style={styles.rank}>-</Text>
@@ -157,7 +203,8 @@ function mapStateToProps(state) {
 function mapPropsToDispatch(dispatch) {
     return {
         navTo: (route) => dispatch({ type: 'NAVIGATE_TO', route: route }),
-        log: (msg) => dispatch({ type: 'RECORD', log: msg })
+        log: (msg) => dispatch({ type: 'RECORD', log: msg }),
+        setUserProfile: (id) => dispatch({ type: 'SET_USER_ID', id: id })
     }
 }
 

@@ -2,15 +2,17 @@ import React from 'react';
 import { View, ScrollView, Dimensions, Text, Image, TouchableOpacity, ActivityIndicator, TextInput, Modal, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import ImageZoom from 'react-native-image-pan-zoom';
+import imageCacheHoc from 'react-native-image-cache-hoc';
 import { config } from './../../../config';
 
 import { colors, fonts } from '../common/Styles';
 import { gqlOptions, gqlURI } from '../../utils/Fetch';
-import renderIf from './renderif'
+import LikesList from './LikesList';
 
 const { width, height } = Dimensions.get('window');
 const dimensions = Dimensions.get('window');
 const uploads = config.ConfigSettings.uploadsFolder;
+const CacheableImage = imageCacheHoc(Image, {});
 
 class PhotoList extends React.Component {
     constructor(props) {
@@ -110,6 +112,10 @@ class PhotoList extends React.Component {
         this.props.navTo(route);
     }
 
+    openLikes = () => {
+        this.likeslist.openLikes();
+    }
+
     render() {
         formatDate = (date) => {
             let n = parseInt(date);
@@ -130,7 +136,7 @@ class PhotoList extends React.Component {
                             cropHeight={Dimensions.get('window').height}
                             imageWidth={width}
                             imageHeight={height}>
-                            <Image
+                            <CacheableImage
                                 enableHorizontalBounce={true}
                                 style={{
                                     width: width,
@@ -144,7 +150,7 @@ class PhotoList extends React.Component {
                             <Text style={{ color: "white" }}>{photo.author.firstName} {photo.author.lastName}</Text>
                             <Text style={{ color: "white" }}>{formatDate(photo.time)}</Text>
                             <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', borderBottomColor: "#fff", borderBottomWidth: 1, paddingBottom: 15, marginVertical: 15 }}>
-                                <Text style={{ color: "#fff" }}>{photo.likes_count} Like{photo.likes_count != 1 && "s"}</Text>
+                                <Text onPress={() => this.openLikes()} style={{ color: "#fff" }}>{photo.likes_count} Like{photo.likes_count != 1 && "s"}</Text>
                                 <Text style={{ color: "#fff" }} onPress={() => this.props.navTo("comments")}>{photo.comments.length} Comment{photo.comments.length != 1 && "s"}</Text>
                             </View>
                             <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around' }}>
@@ -170,6 +176,8 @@ class PhotoList extends React.Component {
                         <ActivityIndicator size="large" color="#fff" />
                     </View>
                 }
+
+                <LikesList ref={(ref) => this.likeslist = ref} photo_id={this.props.photo_id} />
             </View>
         );
     }

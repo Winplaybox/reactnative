@@ -1,7 +1,7 @@
-export const points = {
-    like: 5,
+export const points = {    
     photoUpload: 10,
+    comment: 3,
+    like: 2,
     view: 1,
-    comment: 2,
     selfComment: 1
 }

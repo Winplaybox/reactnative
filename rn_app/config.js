@@ -5,6 +5,7 @@ export const config = {
         //gqlURI: "http://192.168.1.23:3000/graphql?",
         serverURI: "http://13.232.85.183:8082/",
         //serverURI: "http://192.168.1.23:3000/"
+        //serverURI: "https://zeal-server.herokuapp.com/"
     }
 }
 
