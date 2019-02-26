@@ -1,0 +1,129 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+li.route {
+  cursor: pointer;
+  margin-right: 30px;
+}
+li.route:hover {
+    text-decoration: underline
+}
+
+.header {
+  border: 1px solid #efefef;
+  border-radius: 5px;
+  padding: 25px 20px;
+  background-color: #007bff;
+  position: fixed;
+  width: 100%;
+  z-index:2;
+}
+.comp {
+  padding-top: 110px;
+}
+
+.header ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0px;
+  font-size: 16px;
+  color: #fff;
+}
+
+.ActList {
+  width: 100%;
+  padding: 0 20px;
+}
+.ActList .form-row:before {
+  content: attr(data-id)".";
+  left: 30px;
+  position: absolute;
+}
+
+.ActList .form-row {
+  padding: 10px;
+  border: 1px solid #efefef;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  padding-left: 30px;
+}
+
+.ActList .submitBtn {
+  margin-top: auto;
+  margin-bottom: 5px;
+}
+
+.ActList .form-group {
+  margin-bottom: 5px;
+}
+
+.submitBtn button{
+  width: 100%;
+}
+
+ul#UserList {
+  position: absolute;
+  z-index: 1;
+  background: #fff;
+  /* border-bottom: 1px solid #ccc; */
+  max-height: 300px;
+  overflow-y: auto;
+  min-width: 300px;
+  padding: 0;
+}
+
+ul#UserList li{
+  cursor: pointer;
+}
+
+span.actor:after {
+  content: "x";
+  background: #fff;
+  cursor: pointer;
+  color: #007bff;
+  margin-left: 5px;
+  height: 18px;
+  display: inline-block;
+  line-height: 15px;
+  font-size: 13px;
+  width: 18px;
+  text-align: center;
+  border-radius: 15px;
+  transform: translateY(-2px);
+  position: relative;
+}
+
+
+
+label.actorList {
+  margin-top: 6px;
+}
+
+span.actor {
+  background: #007bff;
+  color: #fff;
+  padding: 1px 5px;
+  border: solid 1px #046cdc;
+  border-radius: 6px;
+  display: inline-block;
+  cursor: pointer;
+  margin-left: 6px;
+}
+
+span.actor:hover {
+  background: #085cb3;
+}
