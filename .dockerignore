@@ -1,0 +1,11 @@
+node_modules
+.gitignore
+tsconfig.json
+public
+server_app/public
+server_app/node_modules
+rn_app
+web_dashboard_app
+web_app
+Gulpfile.json
+.gitignore

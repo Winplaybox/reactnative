@@ -1,0 +1,74 @@
+activity schedule
+
+activity stages
+- upcoming
+    - remind me
+- ongoing
+    - comment, capture media
+- complete
+    - comment, capture media, rate
+
+
+
+recent user activity
+- comments/photos/top users
+- current event
+
+
+points
+- photos - 5
+- comments - 2 (minimum length requirement)
+- likes on photos - 1
+
+
+badges
+Star (performer only)
+
+ (Management)
+
+ranks
+bronze
+silver
+gold
+platinum
+diamond
+elite
+master
+
+
+
+
+page scrollview bug - done
+dob for login - done
+user page design - done
+comments to be counted for leaderboard - done
+authenticated route - do later
+fix select type in add act in react app - done
+views count - done
+infinite scrolling - done
+like button on feed - done
+delete photo button on user dashboard - done
+open photos from user dashboard - done
+open photos from act - done
+like/unlike photo page - done
+is live? - done
+
+update all urls
+
+
+
+delete likes comments on photo removal
+
+change time from admin users 
+//acts save in reducer and load only once
+album
+profile page for people
+
+photos in cache
+dashboard persist image limit in redux
+
+tag in photo
+
+
+apk link
+qr code

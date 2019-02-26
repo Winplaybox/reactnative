@@ -1,0 +1,60 @@
+- login validation
+- get user details
+- get events (sort by ranking, time)
+- get event details (participant list)
+- get top users (10)
+- post photo
+- post comment
+- post rating
+- post like
+
+
+employee
+- usr_id
+- fname
+- lname
+- avatar
+- doj
+- emp_id
+
+comment
+- comment_id
+- usr_id
+- post_id
+- time
+
+media
+- post_id
+- post_type act/private/public
+- usr_id
+- pic_id
+- media_type photo/video
+- name
+- location
+- desc
+- time
+- model
+- view_count
+
+act
+- act_id
+- actor_ids
+- act_name
+- act_desc
+- act_time
+- act_type
+
+ratings
+- rating_id
+- act_id
+- usr_id
+- rating_count
+
+likes
+- post_id
+- post_type
+- usr_id
+- like_type - like/love
+
+
+points = comment count + photo count + likes count + profile completeness count

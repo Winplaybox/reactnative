@@ -1,0 +1,6 @@
+admin dashboard
+- Add/Update/Delete an event / schedule
+- Add/Update/Delete announcements (push notifications)
+- User management
+- 
+- Photos management 

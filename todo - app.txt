@@ -1,0 +1,41 @@
+Screen 1 - Home (300% width)
+    - Schedule
+
+    - Live Feed
+        - Current/Upcoming Event
+        - Uploaded phtos
+
+    - My Dashboard
+        - Edit Profile
+        - My Photos
+        - Recent Activity
+        - Logout
+
+
+Screen 2 - Event
+    - Description
+    - Participants
+    - Time
+    - Rate the Event
+    - Comment
+    - Photos
+
+Screen 3 - Camera
+    - Capture
+    - Text
+        - Fonts
+        - Color
+    - Filters
+        - Date
+        - Rating (*/10)
+        - I was here
+
+Screen 4 - Photo
+    - Author
+    - Timestamp
+    - Comment
+    - Like
+
+
+
+avatars: https://8biticon.com/

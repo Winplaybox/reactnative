@@ -1,0 +1,22 @@
+{
+    "name": "zeal",
+    "version": "1.0.0",
+    "description": "This README would normally document whatever steps are necessary to get your application up and running.",
+    "main": "Gulpfile.js",
+    "dependencies": {},
+    "devDependencies": {
+        "gulp": "^4.0.0",
+        "gulp-debug": "^4.0.0",
+        "gulp-watch": "^5.0.1"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://rohangaikwad@bitbucket.org/ewiz-saas/zeal.git"
+    },
+    "author": "Rohan Gaikwad",
+    "license": "ISC",
+    "homepage": "https://bitbucket.org/ewiz-saas/zeal#readme"
+}
